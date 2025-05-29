@@ -8,7 +8,7 @@ import java.util.Queue;
 /**
  * This class demonstrates how to find whether a path exists between two nodes in
  * an undirected graph using Breadth-First Search (BFS).
- *
+ * <p>
  * It also prints the shortest path from source to destination and the level (distance).
  */
 public class PathInUnDirectedGraph {
@@ -92,13 +92,19 @@ public class PathInUnDirectedGraph {
         System.out.println("Sample Program");
 
         // Sample graph with 6 nodes and 7 edges
-        int n = 6;
-        int e = 7;
-        int[] u = {1, 1, 2, 2, 3, 5, 4}; // Edges: u[i] <-> v[i]
-        int[] v = {2, 4, 4, 3, 5, 6, 5};
+//        int n = 6;
+//        int e = 7;
+//        int[] u = {1, 1, 2, 2, 3, 5, 4}; // Edges: u[i] <-> v[i]
+//        int[] v = {2, 4, 4, 3, 5, 6, 5};
+//        int source = 2;
+//        int destination = 6;
 
-        int source = 2;
-        int destination = 6;
+        int n = 11;
+        int e = 34;
+        int[] u = {1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 4, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 10, 10, 11, 11, 11}; // Edges: u[i] <-> v[i]
+        int[] v = {3, 2, 1, 6, 4, 1, 9, 6, 2, 6, 11, 7, 8, 11, 2, 3, 4, 8, 5, 8, 9, 10, 5, 6, 7, 11, 3, 7, 10, 7, 9, 4, 5, 8};
+        int source = 10;
+        int destination = 2;
 
         // Call to process graph
         process(u, v, n, e, source, destination);
