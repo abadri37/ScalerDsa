@@ -150,4 +150,32 @@ public class Node {
         }
         System.out.println();
     }
+
+    /**
+     * Creates a cycle in the linked list at the given position.
+     * For example, position 4 will link the last node to the node at index 4.
+     *
+     * @param head     Head of the list
+     * @param position Zero-based index where the cycle should begin
+     */
+    public static void createCycle(Node head, int position) {
+        if (head == null || position < 0) return;
+
+        Node cycleStart = null;
+        Node temp = head;
+        int index = 0;
+
+        while (temp.next != null) {
+            if (index == position) {
+                cycleStart = temp;
+            }
+            temp = temp.next;
+            index++;
+        }
+
+        if (cycleStart != null) {
+            temp.next = cycleStart;  // Create the cycle
+        }
+    }
+
 }
