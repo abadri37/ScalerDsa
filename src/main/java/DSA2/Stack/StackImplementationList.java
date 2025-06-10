@@ -7,11 +7,11 @@ import java.util.List;
  * Custom implementation of a Stack using an ArrayList.
  * Follows LIFO (Last-In-First-Out) principle.
  */
-public class StackImplementation {
+public class StackImplementationList {
 
 
     public static void main(String[] args) {
-        StackImplementation stack = new StackImplementation();
+        StackImplementationList stack = new StackImplementationList();
 
         // Pushing elements into the stack
         stack.push(10);
@@ -51,7 +51,7 @@ public class StackImplementation {
     private List<Integer> stackList;
 
     // Constructor to initialize the stack
-    public StackImplementation() {
+    public StackImplementationList() {
         stackList = new ArrayList<>();
     }
 
