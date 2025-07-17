@@ -16,8 +16,8 @@ public class NextPermutation {
     public void nextPermutation(int[] nums) {
         int pivot = -1;
 
-        // Step 1: Find the first index 'i' from the end where nums[i] < nums[i+1]
-        // This is the pivot point
+        // Step 1: Move from right to left, find the first index 'i' where nums[i] < nums[i + 1]
+        // (This is the pivot — the first dip where the ascending order is broken from the end)
         int i = nums.length - 2;
         while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
