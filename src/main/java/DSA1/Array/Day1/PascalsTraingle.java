@@ -1,4 +1,4 @@
-package DSA1.Array;
+package DSA1.Array.Day1;
 
 import java.util.ArrayList;
 import java.util.List;
