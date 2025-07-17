@@ -16,6 +16,7 @@ public class StockBuySell {
             // Update the minimum price if a lower one is found
             minPrice = Math.min(minPrice, prices[i]);
 
+
             // Calculate current potential profit by selling at current price and buying at minPrice
             int currentProfit = prices[i] - minPrice;
 
