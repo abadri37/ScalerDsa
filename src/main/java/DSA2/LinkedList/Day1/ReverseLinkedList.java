@@ -8,37 +8,51 @@ import static DSA2.LinkedList.Node.printNode;
 public class ReverseLinkedList {
 
     public static void main(String[] args) {
-        // Sample input array
+        // Sample input array to build a linked list
         int[] in = new int[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
 
-        // Create a linked list from the array
+        // Create a linked list from the array [1 → 2 → 3 … → 10]
         Node head = createLinkedList(in);
 
         System.out.print("Current Linked List is ");
-        printNode(head);
+        printNode(head); // print original list
 
-        // Reverse entire linked list
-        Node node = reverseList(head);
+        // Reverse the entire linked list
+        Node node = reverseLinkedList(head);
+
         System.out.print("Reversed Linked List is ");
-        printNode(node);
+        printNode(node); // print reversed list
     }
 
-
     /**
-     * Reverses the entire linked list.
+     * Reverses a singly linked list.
      *
-     * @param head Head of the original linked list
-     * @return New head after reversal
+     * @param head head of the original linked list
+     * @return new head of the reversed linked list
      */
-    public static Node reverseList(Node head) {
+    public static Node reverseLinkedList(Node head) {
+        // 'previous' will track the already reversed portion (initially empty → null)
         Node previous = null;
+
+        // 'current' will iterate over the original list
         Node current = head;
+
+        // Traverse the list until we reach the end
         while (current != null) {
-            Node nextNode = current.next;
+            // Step 1: Save the next node (to not lose the rest of the list)
+            Node next = current.next;
+
+            // Step 2: Reverse the current node's pointer
             current.next = previous;
+
+            // Step 3: Move 'previous' one step forward
             previous = current;
-            current = nextNode;
+
+            // Step 4: Move 'current' one step forward
+            current = next;
         }
+
+        // At the end, 'previous' points to the new head of the reversed list
         return previous;
     }
 }
