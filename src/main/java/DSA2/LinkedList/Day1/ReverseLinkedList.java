@@ -22,6 +22,12 @@ public class ReverseLinkedList {
 
         System.out.print("Reversed Linked List is ");
         printNode(node); // print reversed list
+
+        // Reverse linked list starting from index 2
+        Node indexReverse = reverseFromIndex(createLinkedList(in), 2);
+
+        System.out.print("Reversed Linked List from Index 2 is ");
+        printNode(indexReverse); // print reversed list
     }
 
     /**
@@ -54,5 +60,69 @@ public class ReverseLinkedList {
 
         // At the end, 'previous' points to the new head of the reversed list
         return previous;
+    }
+
+    /**
+     * Reverses the linked list starting from a given index.
+     *
+     * Example: List = [1 → 2 → 3 → 4 → 5], position = 2
+     * Result  = [1 → 2 → 5 → 4 → 3]
+     *
+     * @param head     head of the linked list
+     * @param position 0-based index from where reversal should start
+     * @return modified linked list head
+     */
+    public static Node reverseFromIndex(Node head, int position) {
+        // Edge case: empty list or invalid position
+        if (head == null || position < 0) {
+            System.out.println("Invalid position or empty list");
+            return head;
+        }
+
+        // If position == 0 → reverse the whole list
+        if (position == 0) {
+            System.out.println("Reversing complete List");
+            return reverseLinkedList(head);
+        }
+
+        // Step 1: Traverse to the node just before the given position
+        Node temp = head;
+        int index = 0;
+        while (temp != null && index < position - 1) {
+            temp = temp.next;
+            index++;
+        }
+
+        // Step 2: If position is out of range → return unchanged list
+        if (temp == null || temp.next == null) {
+            System.out.println("Invalid position or empty list");
+            return head;
+        }
+
+        // 'beforeReverse' is the last node before the reversal starts
+        Node beforeReverse = temp;
+
+        // 'reverseStart' is the first node of the part to be reversed
+        Node reverseStart = temp.next;
+
+        // Step 3: Reverse the sub-list starting from reverseStart till end
+        Node previous = null;
+        Node current = reverseStart;
+
+        while (current != null) {
+            Node next = current.next;  // Save next node
+            current.next = previous;   // Reverse pointer
+            previous = current;        // Move 'previous' forward
+            current = next;            // Move 'current' forward
+        }
+
+        // Step 4: Connect 'beforeReverse' to the new head of reversed part
+        beforeReverse.next = previous;
+
+        // Step 5: Connect the tail of reversed part (old 'reverseStart')
+        // to null (or can be adjusted if you want to stop earlier)
+        reverseStart.next = null;
+
+        return head;
     }
 }
