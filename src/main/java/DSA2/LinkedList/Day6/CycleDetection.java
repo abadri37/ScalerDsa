@@ -20,6 +20,8 @@ public class CycleDetection {
         // Detect if a cycle exists
         System.out.println("The Cycle exists in the LinkedList is " + hasCycle(head));
 
+        // If a cycle exists, print where it starts
+        hasCyclePoints(head);
     }
 
     /**
@@ -44,5 +46,36 @@ public class CycleDetection {
         }
         // No cycle
         return false;
+    }
+
+    /**
+     * Prints the starting point of the cycle in the linked list, if one exists.
+     *
+     * @param head The head of the linked list
+     */
+    public static void hasCyclePoints(Node head) {
+        Node slow = head;
+        Node fast = head;
+
+        // Detect cycle using two pointers
+        while (fast != null && fast.next != null) {
+            slow = slow.next;
+            fast = fast.next.next;
+
+            // If a cycle is detected
+            if (slow == fast) {
+                Node entry = head;
+
+                // Move both pointers one step at a time to find the cycle start
+                while (entry != slow) {
+                    entry = entry.next;
+                    slow = slow.next;
+                }
+
+                // 'entry' now points to the start of the cycle
+                System.out.println("The Cycle starts at node with value: " + entry.getData());
+                break;
+            }
+        }
     }
 }
