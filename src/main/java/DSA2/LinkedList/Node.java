@@ -10,6 +10,10 @@ public class Node {
         this.next = null;
     }
 
+    public int getData() {
+        return data;
+    }
+
     /**
      * Creates a linked list from an array of integers.
      *
