@@ -14,6 +14,10 @@ public class Node {
         return data;
     }
 
+    public void setData(int data) {
+        this.data = data;
+    }
+
     /**
      * Creates a linked list from an array of integers.
      *
