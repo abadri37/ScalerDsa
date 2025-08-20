@@ -1,4 +1,4 @@
-package DSA2.LinkedList.Day1;
+package DSA2.LinkedList.Day5;
 
 import DSA2.LinkedList.Node;
 
