@@ -1,4 +1,6 @@
-package DSA2.LinkedList;
+package DSA2.LinkedList.Day6;
+
+import DSA2.LinkedList.Node;
 
 public class IntersectionNode {
 
@@ -29,7 +31,7 @@ public class IntersectionNode {
         Node ret = intersectionNode(a1, b1);
 
         if (ret != null) {
-            System.out.println("The intersection lies at the point " + ret.data);
+            System.out.println("The intersection lies at the point " + ret.getData());
         } else {
             System.out.println("There is no intersection.");
         }
