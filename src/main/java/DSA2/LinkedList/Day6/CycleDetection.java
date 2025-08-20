@@ -1,4 +1,4 @@
-package DSA2.LinkedList.Day2;
+package DSA2.LinkedList.Day6;
 
 import DSA2.LinkedList.Node;
 
@@ -42,9 +42,7 @@ public class CycleDetection {
                 return true;
             }
         }
-
         // No cycle
         return false;
     }
-
 }
