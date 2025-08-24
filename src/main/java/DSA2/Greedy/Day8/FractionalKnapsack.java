@@ -1,4 +1,4 @@
-package DSA2.Greedy;
+package DSA2.Greedy.Day8;
 
 import java.util.PriorityQueue;
 
