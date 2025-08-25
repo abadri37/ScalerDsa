@@ -1,4 +1,4 @@
-package DSA2.Recursion;
+package DSA2.Recursion.Day9;
 
 import java.util.ArrayList;
 import java.util.Arrays;
