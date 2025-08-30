@@ -4,7 +4,7 @@ public class KthElementSortedArrays {
     public static void main(String[] args) {
         int[] A = new int[]{2, 3, 6, 7, 9};
         int[] B = new int[]{1, 4, 8, 10};
-        int k = 5;
+        int k = 7;
         System.out.println("The Solution exists in " + solve(A, B, k));
     }
 
