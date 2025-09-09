@@ -31,6 +31,7 @@ public class RabinKarp {
         int n = pattern.length();
         int m = text.length();
 
+
         // Edge case: if text is shorter than pattern, no matches possible
         if (m < n) {
             return list;
