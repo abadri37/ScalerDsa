@@ -5,7 +5,7 @@ public class TreeBuilder {
     /**
      * Constructs the following binary tree:
      * <p>
-     * 50
+     *    50
      * /      \
      * 30        70
      * /   \     /    \
@@ -44,7 +44,7 @@ public class TreeBuilder {
 
     /**
      * Builds a bigger tree with sequential values:
-     * 1
+     *   1
      * /   \
      * 2     3
      * /  \   / \
