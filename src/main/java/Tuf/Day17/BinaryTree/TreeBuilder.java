@@ -2,6 +2,22 @@ package Tuf.Day17.BinaryTree;
 
 public class TreeBuilder {
 
+    /**
+     * Constructs the following binary tree:
+     *
+     *                  50
+     *               /      \
+     *             30        70
+     *           /   \     /    \
+     *         20    40   60     90
+     *        /  \        / \
+     *      10   25     55   65
+     *                  / \
+     *                52   58
+     *
+     * This is a Binary Search Tree (BST)-like structure with
+     * both left and right subtrees expanded at multiple levels.
+     */
     public static TreeNode buildTree() {
         TreeNode root = new TreeNode(50);
 
@@ -25,6 +41,35 @@ public class TreeBuilder {
 
         return root;
     }
+
+    /**
+     * Builds a bigger tree with sequential values:
+     *             1
+     *           /   \
+     *          2     3
+     *        /  \   / \
+     *       4    5 6   7
+     *      / \  /
+     *     8  9 10
+     */
+    public static TreeNode buildTree2() {
+        TreeNode root = new TreeNode(1);
+
+        root.left = new TreeNode(2);
+        root.right = new TreeNode(3);
+
+        root.left.left = new TreeNode(4);
+        root.left.right = new TreeNode(5);
+        root.right.left = new TreeNode(6);
+        root.right.right = new TreeNode(7);
+
+        root.left.left.left = new TreeNode(8);
+        root.left.left.right = new TreeNode(9);
+        root.left.right.left = new TreeNode(10);
+
+        return root;
+    }
+
 
     static class TreeNode {
         int val;
