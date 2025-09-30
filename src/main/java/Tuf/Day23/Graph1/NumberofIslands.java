@@ -1,4 +1,4 @@
-package DSA4.graph;
+package Tuf.Day23.Graph1;
 
 /**
  * This class implements the solution to the "Number of Islands" problem.
