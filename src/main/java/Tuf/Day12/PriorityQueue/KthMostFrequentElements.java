@@ -15,6 +15,10 @@ public class KthMostFrequentElements {
 
         /**
          * Step 1: Count frequencies of each number
+         *
+         * 💭 Why do we need a frequency map?
+         *    → To know how many times each number appears.
+         *
          * Example:
          * nums = [4,4,4,5,5,6,7,7,7,7]
          * Frequency map will look like:
@@ -26,31 +30,74 @@ public class KthMostFrequentElements {
         }
 
         /**
-         * Step 2: Create a max-heap (priority queue)
-         * Comparator: higher frequency elements should come first.
-         * In Java, PriorityQueue is min-heap by default,
-         * so we reverse the order: b.getValue() - a.getValue()
+         * Step 2: Use a Min-Heap (PriorityQueue)
+         *
+         * 💭 Why min-heap and not max-heap?
+         *    → We want to keep only the top K elements.
+         *      The smallest frequency should be easy to remove.
+         *
+         * Comparator explanation:
+         * (a, b) -> a.value - b.value
+         * → sorts by frequency ascending (smallest freq at the top)
          */
-        PriorityQueue<Map.Entry<Integer, Integer>> heap =
-                new PriorityQueue<>((a, b) -> b.getValue() - a.getValue());
-
-        // Step 3: Push all map entries into the heap
-        heap.addAll(map.entrySet());
+        PriorityQueue<Pair> heapPair = new PriorityQueue<>(
+                (a, b) -> a.value - b.value
+        );
 
         /**
-         * Step 4: Extract top k elements from the heap
-         * Each poll() removes the entry with the highest frequency.
-         * We add its key (the number itself) to the result list.
+         * Step 3: Add elements into the heap
+         *
+         * 💭 What happens when heap size > k?
+         *    → We remove the least frequent element (top of the min-heap).
+         *
+         * This ensures that after processing all entries,
+         * the heap only contains the k most frequent elements.
          */
-        while (!heap.isEmpty() && k > 0) {
-            list.add(heap.poll().getKey());
-            k--;
+        for (Map.Entry<Integer, Integer> hashMap : map.entrySet()) {
+            heapPair.add(new Pair(hashMap.getKey(), hashMap.getValue()));
+            if (heapPair.size() > k) {
+                heapPair.poll();  // removes the smallest frequency
+            }
+        }
+
+        /**
+         * Step 4: Extract elements from heap
+         *
+         * 💭 Why do we collect them in a list?
+         *    → To easily convert to an array later.
+         *
+         * 💭 Will the result be in frequency order?
+         *    → Not guaranteed; heap pops smallest remaining each time.
+         *      You can reverse the list if you want descending order.
+         */
+        while (!heapPair.isEmpty()) {
+            list.add(heapPair.poll().key);
         }
 
         /**
          * Step 5: Convert the List<Integer> to int[]
          * Final result: array of top-k frequent numbers
+         *
+         * 💭 Why use stream here?
+         *    → Simple, clean conversion from List<Integer> → int[].
          */
         return list.stream().mapToInt(Integer::intValue).toArray();
+    }
+
+    /**
+     * Helper class to store key-value pairs.
+     *
+     * 💭 Why not use Map.Entry directly?
+     *    → You could, but creating a small custom Pair class
+     *      makes it reusable and clearer in the heap logic.
+     */
+    static class Pair {
+        int key;
+        int value;
+
+        public Pair(int key, int value) {
+            this.key = key;
+            this.value = value;
+        }
     }
 }
