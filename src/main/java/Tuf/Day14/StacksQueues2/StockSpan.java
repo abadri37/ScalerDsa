@@ -1,4 +1,4 @@
-package Tuf.Day14;
+package Tuf.Day14.StacksQueues2;
 
 import java.util.Stack;
 
