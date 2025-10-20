@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class CheckforAnagrams {
+    // LeetCode 242
     public static void main(String[] args) {
         // Example 1: True case
         String s1 = "anagram";
@@ -36,8 +37,8 @@ public class CheckforAnagrams {
      * 1. If lengths differ, they can't be anagrams.
      * 2. Count frequency of each character in 's' and store in map1.
      * 3. Traverse 't', decrementing counts in map1.
-     *    - If a char in 't' doesn't exist in map1 → not an anagram.
-     *    - If count goes negative → extra char in 't', not an anagram.
+     * - If a char in 't' doesn't exist in map1 → not an anagram.
+     * - If count goes negative → extra char in 't', not an anagram.
      * 4. If no mismatches, return true.
      */
     public static boolean checkAnagram(String s, String t) {
