@@ -3,6 +3,11 @@ package Tuf.Day1.Arrays1;
 import java.util.Arrays;
 
 public class NextPermutation {
+    // ✅ Leetcode 31 — Next Permutation
+    // Time complexity: O(n)
+    // Space complexity: O(1)
+    // Goal: Rearrange numbers to form the next lexicographically greater permutation.
+    // If not possible (array is descending), rearrange to smallest permutation (ascending).
 
     public static void main(String[] args) {
         int[] nums = {1, 2, 3};  // Example input
@@ -16,37 +21,38 @@ public class NextPermutation {
     public void nextPermutation(int[] nums) {
         int pivot = -1;
 
-        // Step 1: Move from right to left, find the first index 'i' where nums[i] < nums[i + 1]
-        // (This is the pivot — the first dip where the ascending order is broken from the end)
+        // 🔹 Step 1: Find the "pivot" — the first element from right which breaks descending order
+        // e.g. in [1,5,8,4,7,6,5,3,1], pivot = 4 (at index 3)
         int i = nums.length - 2;
         while (i >= 0 && nums[i] >= nums[i + 1]) {
             i--;
         }
-        pivot = i;
+        pivot = i; // store pivot index (can be -1 if array is descending like [3,2,1])
 
-        // Step 2: If pivot is valid (i >= 0), find the next larger element to the right and swap
+        // 🔹 Step 2: If pivot exists, find the next larger element to the right
         if (i >= 0) {
             int j = nums.length - 1;
-            // Find the first number greater than nums[i] from the end
+            // Find the smallest number greater than nums[pivot] from the end
             while (nums[j] <= nums[i]) {
                 j--;
             }
-            // Swap the pivot and next greater element
+            // Swap pivot and next greater element
             swap(nums, i, j);
         }
 
-        // Step 3: Reverse the sub-array to the right of the pivot (or whole array if no pivot)
+        // 🔹 Step 3: Reverse the sub-array after the pivot
+        // This ensures the suffix is in the smallest lexicographic order
         reverse(nums, i + 1);
     }
 
-    // Swap two elements in the array
+    // 🔁 Swap two array elements
     public void swap(int[] nums, int i, int j) {
         int temp = nums[i];
         nums[i] = nums[j];
         nums[j] = temp;
     }
 
-    // Reverse the array from index 'i' to the end
+    // 🔄 Reverse the array from given index to end
     public void reverse(int[] nums, int i) {
         int left = i;
         int right = nums.length - 1;

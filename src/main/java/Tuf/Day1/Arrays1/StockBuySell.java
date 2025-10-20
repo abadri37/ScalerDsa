@@ -1,30 +1,47 @@
 package Tuf.Day1.Arrays1;
 
 public class StockBuySell {
-    public static void main(String[] args) {
-        // Input prices array where each element represents the stock price on that day
-        int[] prices = {7, 1, 5, 3, 6, 4};  // Change this for different test cases
+    // LeetCode 121: Best Time to Buy and Sell Stock
 
-        // Initialize maxProfit to the smallest possible value to ensure any valid profit will be larger
+    public static void main(String[] args) {
+        // 🧠 Question: What does each index of 'prices' represent?
+        // → Each index represents the stock price on that specific day.
+        int[] prices = {7, 1, 5, 3, 6, 4};  // Example input (you can modify for testing)
+
+        // 🧠 Question: Why initialize maxProfit with Integer.MIN_VALUE?
+        // → So that any real profit (even 0 or negative initially) will replace this value.
         int maxProfit = Integer.MIN_VALUE;
 
-        // Initialize minPrice to the largest possible value to track the lowest price seen so far
+        // 🧠 Question: Why initialize minPrice with Integer.MAX_VALUE?
+        // → Because we want to track the *lowest* stock price seen so far.
+        // Starting high ensures any real price will be smaller.
         int minPrice = Integer.MAX_VALUE;
 
-        // Iterate over all prices
+        // 🧠 Question: Why iterate through all prices?
+        // → Because we must check every day's price as a potential selling point.
         for (int i = 0; i < prices.length; i++) {
-            // Update the minimum price if a lower one is found
+
+            // Step 1️⃣ → Track the lowest price so far (best day to buy)
+            // If today’s price is less than the previous minimum, update it
             minPrice = Math.min(minPrice, prices[i]);
 
-
-            // Calculate current potential profit by selling at current price and buying at minPrice
+            // 🧠 Question: What does currentProfit mean?
+            // → It’s the profit if you bought at minPrice (lowest so far)
+            //    and sold at the current day’s price.
             int currentProfit = prices[i] - minPrice;
 
-            // Update maxProfit if the currentProfit is greater than the previous maxProfit
+            // Step 2️⃣ → Update maxProfit if today’s profit is better than previous ones
+            // 🧠 Question: Why use Math.max here?
+            // → To ensure we always store the highest profit seen so far.
             maxProfit = Math.max(maxProfit, currentProfit);
+
+            // Optional: Uncomment for debugging
+            // System.out.println("Day " + i + ": Price=" + prices[i] + ", MinPrice=" + minPrice + ", CurrentProfit=" + currentProfit + ", MaxProfit=" + maxProfit);
         }
 
-        // Output the result
+        // Step 3️⃣ → After iterating all days, maxProfit holds the best achievable profit
+        // 🧠 Question: What if prices always decrease?
+        // → Then maxProfit will be 0 (no profit possible since we can’t sell before buying)
         System.out.println("The Maximum Profit is " + maxProfit);
     }
 }
