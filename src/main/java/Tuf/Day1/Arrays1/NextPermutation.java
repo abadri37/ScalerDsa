@@ -10,7 +10,7 @@ public class NextPermutation {
     // If not possible (array is descending), rearrange to smallest permutation (ascending).
 
     public static void main(String[] args) {
-        int[] nums = {1, 2, 3};  // Example input
+        int[] nums = {1, 5, 8, 4, 7, 6, 5, 3, 1};  // Example input
 
         System.out.println("Original: " + Arrays.toString(nums));
         NextPermutation sol = new NextPermutation();
