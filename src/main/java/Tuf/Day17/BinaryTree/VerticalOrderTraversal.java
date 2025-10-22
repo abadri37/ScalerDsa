@@ -1,75 +1,130 @@
 package Tuf.Day17.BinaryTree;
 
 import Tuf.Day17.BinaryTree.TreeBuilder.TreeNode;
-
 import java.util.*;
 
+/**
+ * This class performs a Vertical Order Traversal of a binary tree.
+ *
+ * In Vertical Order Traversal, nodes are grouped based on their
+ * horizontal distance (hd) from the root:
+ *
+ *        hd = 0 at root
+ *        hd - 1 for left child
+ *        hd + 1 for right child
+ *
+ * Nodes with the same hd are printed in the same vertical line.
+ * For example:
+ *
+ *                50
+ *            /       \
+ *          30         70
+ *        /   \       /   \
+ *      20    40   60     90
+ *     / \         / \
+ *   10  25      55  65
+ *                / \
+ *              52  58
+ *
+ *  Vertical Order Output:
+ *  [
+ *    [10],
+ *    [20, 52],
+ *    [30, 25, 55],
+ *    [50, 40, 60, 58],
+ *    [70, 65],
+ *    [90]
+ *  ]
+ */
 public class VerticalOrderTraversal {
 
     public static void main(String[] args) {
-        // Build a sample tree from TreeBuilder (assume it gives a root node)
-        TreeNode node = TreeBuilder.buildTree();
 
+        // Build a sample binary tree from TreeBuilder
+        TreeNode root = TreeBuilder.buildTree();
+
+        // This list will store the final result
+        // Each element represents one vertical column
         List<List<Integer>> list = new ArrayList<>();
-        verticalOrderTraversal(node, list);
 
-        // Print result for visualization
+        // Perform vertical order traversal
+        verticalOrderTraversal(root, list);
+
+        // Print result as list of lists for clarity
         System.out.println(Arrays.toString(list.toArray()));
     }
 
     /**
-     * Performs vertical order traversal of a binary tree.
-     * Groups nodes by their "horizontal distance" (hd) from root.
+     * Performs vertical order traversal of the given binary tree.
+     * The result is filled into the provided list parameter.
      *
-     * @param node Root node of the tree
-     * @param list Final list of lists storing vertical order nodes
+     * @param node Root node of the binary tree
+     * @param list Output parameter where final vertical order nodes are added
      */
     public static void verticalOrderTraversal(TreeNode node, List<List<Integer>> list) {
         if (node == null) {
             return;
         }
 
-        // Queue for BFS traversal: stores nodes along with their horizontal distance (hd)
+        // Queue for BFS traversal
+        // Each element in the queue holds a node and its horizontal distance (hd)
         Queue<Pair> queue = new LinkedList<>();
+
+        // Start with root node having hd = 0
         queue.add(new Pair(node, 0));
 
-        // Map to store hd -> list of nodes
-        // Using TreeMap so keys (hd) are automatically sorted (leftmost to rightmost)
+        // TreeMap is used instead of HashMap to automatically
+        // keep horizontal distances sorted from leftmost to rightmost
         Map<Integer, List<TreeNode>> map = new TreeMap<>();
 
-        // BFS traversal
+        // Perform a level-order (BFS) traversal of the tree
         while (!queue.isEmpty()) {
+
+            // Remove the current node from the queue
             Pair pair = queue.poll();
 
-            // Add current node into its hd group
+            // If this hd is not in the map, create a new list
             map.putIfAbsent(pair.hd, new ArrayList<>());
+
+            // Add the current node to its corresponding hd list
             map.get(pair.hd).add(pair.node);
 
-            // Left child → hd - 1
+            // For the left child, horizontal distance decreases by 1
             if (pair.node.left != null) {
                 queue.add(new Pair(pair.node.left, pair.hd - 1));
             }
 
-            // Right child → hd + 1
+            // For the right child, horizontal distance increases by 1
             if (pair.node.right != null) {
                 queue.add(new Pair(pair.node.right, pair.hd + 1));
             }
         }
 
-        // Convert TreeNode lists into lists of integer values for final output
+        // After BFS traversal completes, we now have all nodes
+        // grouped by their horizontal distance (sorted order)
+        // Convert the TreeNode values into integer lists for final output
         for (Map.Entry<Integer, List<TreeNode>> entry : map.entrySet()) {
-            List<Integer> nodeKeys = new ArrayList<>();
+
+            // For each column (hd), create a list of integer values
+            List<Integer> nodeValues = new ArrayList<>();
+
+            // Add all node values from this hd
             for (TreeNode nodes : entry.getValue()) {
-                nodeKeys.add(nodes.val);
+                nodeValues.add(nodes.val);
             }
-            list.add(nodeKeys);
+
+            // Add this column list to the final result
+            list.add(nodeValues);
         }
     }
 
-    // Helper class to store a node along with its horizontal distance
+    /**
+     * Helper class to store a TreeNode along with its horizontal distance (hd)
+     * from the root. Used to track each node’s vertical position during BFS.
+     */
     static class Pair {
-        TreeNode node;
-        int hd;
+        TreeNode node;  // The current node reference
+        int hd;         // Horizontal distance of this node from root
 
         Pair(TreeNode node, int hd) {
             this.node = node;
