@@ -5,50 +5,75 @@ import Tuf.Day17.BinaryTree.TreeBuilder.TreeNode;
 
 import java.util.*;
 
+/**
+ * This program performs a **Level Order Traversal** of a binary tree.
+ *
+ * ✅ Level Order Traversal (also known as Breadth-First Search - BFS)
+ * means visiting nodes level by level from top to bottom and left to right.
+ *
+ * Example:
+ *          1
+ *         / \
+ *        2   3
+ *       / \   \
+ *      4   5   6
+ *
+ * Output: [ [1], [2, 3], [4, 5, 6] ]
+ */
 public class LevelOrderTraversal {
 
     public static void main(String[] args) {
-        // Build a sample binary tree using TreeBuilder
-        TreeNode node = TreeBuilder.buildTree();
+        // Build a sample binary tree using helper class TreeBuilder
+        TreeNode node = TreeBuilder.buildTree2();
 
         // Perform level order traversal
         List<List<Integer>> list = levelOrder(node);
 
-        // Print the result as a 2D list for easy visualization
+        // Print the traversal result in 2D form (each level as a separate list)
         System.out.println(Arrays.toString(list.toArray()));
     }
 
     /**
-     * Function to perform level order traversal (BFS) of a binary tree
-     * @param root root node of the tree
-     * @return List of lists, where each inner list contains nodes at the same level
+     * Function to perform level order traversal (BFS) of a binary tree.
+     *
+     * @param root Root node of the binary tree
+     * @return A list of lists, where each inner list represents one level of the tree
      */
     public static List<List<Integer>> levelOrder(TreeNode root) {
+        // List to store the final result (each level in a separate list)
         List<List<Integer>> result = new ArrayList<>();
 
-        // If the tree is empty, return empty list
+        // ✅ Base case: if tree is empty, return empty result
         if (root == null) {
             return result;
         }
 
-        // Queue to store nodes for BFS traversal
+        // Queue is used for Breadth-First Search (BFS)
+        // It helps process nodes level by level
         Queue<TreeNode> queue = new LinkedList<>();
-        queue.add(root);
+        queue.add(root); // Start BFS with root node
 
-        // Iterate while there are nodes in the queue
+        // 🔁 Traverse until the queue becomes empty
         while (!queue.isEmpty()) {
-            int size = queue.size(); // Number of nodes at current level
-            List<Integer> list = new ArrayList<>(); // List to store current level values
 
-            // Process all nodes at the current level
+            // Number of nodes present at the current level
+            int size = queue.size();
+
+            // Temporary list to store all node values of the current level
+            List<Integer> list = new ArrayList<>();
+
+            // Process all nodes of the current level one by one
             for (int i = 0; i < size; i++) {
-                TreeNode node = queue.poll(); // Remove node from queue
 
+                // Remove one node from the queue (FIFO order)
+                TreeNode node = queue.poll();
+
+                // Add the node’s value to the current level list
                 if (node != null) {
-                    list.add(node.val); // Add node value to current level list
+                    list.add(node.val);
                 }
 
-                // Add left and right children to queue if they exist
+                // Add child nodes (if they exist) for next level processing
                 if (node.left != null) {
                     queue.add(node.left);
                 }
@@ -57,10 +82,11 @@ public class LevelOrderTraversal {
                 }
             }
 
-            // Add current level list to final result
+            // After processing the current level, add it to the final result
             result.add(list);
         }
 
+        // Return all levels collected during BFS traversal
         return result;
     }
 }

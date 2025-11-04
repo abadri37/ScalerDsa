@@ -9,15 +9,15 @@ public class TreeBuilder {
     /**
      * Constructs the following binary tree:
      * <p>
-     * 50
-     * /       \
-     * 30        70
-     * /   \     /    \
-     * 20    40   60     90
+     *           50
+     *        /     \
+     *      30       70
+     *    /   \     /   \
+     *  20    40   60   90
      * /  \        / \
      * 10   25     55   65
-     * / \
-     * 52   58
+     *            / \
+     *          52   58
      * <p>
      * This is a Binary Search Tree (BST)-like structure with
      * both left and right subtrees expanded at multiple levels.
@@ -48,12 +48,12 @@ public class TreeBuilder {
 
     /**
      * Builds a bigger tree with sequential values:
-     * 1
-     * /   \
-     * 2     3
-     * /  \   / \
-     * 4    5 6   7
-     * / \  /
+     *         1
+     *       /   \
+     *      2     3
+     *    /  \   / \
+     *   4    5 6   7
+     *  / \  /
      * 8  9 10
      */
     public static TreeNode buildTree2() {

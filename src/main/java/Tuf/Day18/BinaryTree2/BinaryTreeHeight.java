@@ -7,7 +7,7 @@ public class BinaryTreeHeight {
 
     public static void main(String[] args) {
         // Build a sample binary tree using TreeBuilder
-        TreeNode node = TreeBuilder.buildTree2();
+        TreeNode node = TreeBuilder.buildTree();
 
         // Compute and print the maximum depth (height) of the binary tree
         System.out.println("Maximum Depth of Binary Tree: " + maxDepth(node));

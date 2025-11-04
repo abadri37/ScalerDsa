@@ -3,57 +3,85 @@ package Tuf.Day18.BinaryTree2;
 import Tuf.Day17.BinaryTree.TreeBuilder;
 import Tuf.Day17.BinaryTree.TreeBuilder.TreeNode;
 
+/**
+ * This class finds the **diameter** of a binary tree.
+ *
+ * The diameter (or width) of a binary tree is the length of the **longest path**
+ * between any two nodes in the tree.
+ *
+ * This path may or may not pass through the root.
+ *
+ * Formula:
+ *     diameter(node) = max(
+ *          left.height + right.height,   // Path passes through the node
+ *          left.diameter,                // Max diameter in left subtree
+ *          right.diameter                // Max diameter in right subtree
+ *     )
+ */
 public class DiameterBinaryTree {
 
     public static void main(String[] args) {
-        // Build a sample binary tree using TreeBuilder
+        // Build a sample binary tree using the TreeBuilder helper class
         TreeNode node = TreeBuilder.buildTree2();
 
-        // Compute the diameter of the binary tree
+        // Compute height and diameter information using recursion
         TreeInfo info = solveDiameter(node);
 
-        // Print the maximum diameter
-        System.out.println("The Max Diameter of the TreeNode is " + info.diameter);
+        // Print the computed maximum diameter of the tree
+        System.out.println("The Max Diameter of the Tree is " + info.diameter);
     }
 
     /**
-     * Recursive function to calculate the diameter of a binary tree
+     * Recursive function to calculate the **diameter** of a binary tree.
+     *
      * @param node root of the current subtree
-     * @return TreeInfo containing height and diameter of the subtree
+     * @return TreeInfo object containing height and diameter for the subtree
      */
     public static TreeInfo solveDiameter(TreeNode node) {
-        // Base case: empty node has height = 0 and diameter = 0
+
+        // ✅ Base Case:
+        // If the node is null (empty subtree),
+        // height = 0, diameter = 0
         if (node == null) {
             return new TreeInfo(0, 0);
         }
 
-        // Recursively get height and diameter of left and right subtrees
+        // 🔁 Recursively compute diameter and height for left and right subtrees
         TreeInfo left = solveDiameter(node.left);
         TreeInfo right = solveDiameter(node.right);
 
-        // Height of current node = 1 + max(leftHeight, rightHeight)
+        // 📏 Height of the current node = 1 + maximum of left and right heights
         int height = 1 + Math.max(left.height, right.height);
 
-        // Diameter passing through the current node = leftHeight + rightHeight
+        // 📈 Diameter passing through the current node =
+        // left subtree height + right subtree height
         int diameterThroughNode = left.height + right.height;
 
-        // Maximum diameter from children
+        // 🧮 Max diameter found in child subtrees
         int maxDiameter = Math.max(left.diameter, right.diameter);
 
-        // Overall diameter at current node = max(diameterThroughNode, maxDiameter)
+        // 🏁 Final diameter for current node =
+        // max(diameterThroughNode, maxDiameter)
         int diameter = Math.max(diameterThroughNode, maxDiameter);
 
+        // Return TreeInfo with computed height and diameter
         return new TreeInfo(height, diameter);
     }
 
-    // Helper class to store height and diameter of a subtree
+    /**
+     * Helper class that stores both:
+     *  - height of the subtree
+     *  - diameter of the subtree
+     *
+     * This avoids recalculating heights repeatedly, improving performance.
+     */
     static class TreeInfo {
-        int diameter; // Maximum diameter of the subtree
-        int height;   // Height of the subtree
+        int diameter; // Maximum diameter for this subtree
+        int height;   // Height of this subtree
 
         public TreeInfo(int height, int diameter) {
-            this.diameter = diameter;
             this.height = height;
+            this.diameter = diameter;
         }
     }
 }
